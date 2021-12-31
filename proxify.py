@@ -16,7 +16,7 @@ def list2dict(x):
         "anonymity": x[4],
         "google": True if x[5] == "yes" else False,
         "https": True if x[6] == "yes" else False,
-        "last_update": x[7],
+        "last_update": x[7] if len(x) > 7 else "", # My contribution, apparently this is the version problem since x[7] may not exist in new editions
         "url":
         "%s://%s:%s" % ("https" if x[6] == "yes" else "http", x[0], x[1])
     }
@@ -67,16 +67,10 @@ def fetch(count=300, **kwargs) -> list:
         + anonymity -- proxy anonymity (choose from: transparent, anonymous, elite proxy)
         + google    -- set true for google proxies, otherwise false
         + https     -- set true for https proxies, otherwise false
-
     `returns`
     
         list -- list of filtered proxies
-
-
-
-
     ```py
-
     # for example
     print(fetch(count=10, google=True, https=False, country="BR", anonymity="anonymous"))
     ```
@@ -118,3 +112,9 @@ def fetch(count=300, **kwargs) -> list:
 
     # returning sliced list
     return list(data)[:count]
+
+#def main():
+#    print(fetch(10));
+#
+#if __name__ == '__main__':
+#    main()
